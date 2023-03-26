@@ -9,6 +9,8 @@ To run it locally:
 npm i
 ```
 
+* Add .env file with your openAI key in this format `OPEN_AI='KEY'`
+
 * Run server
 
 ```sh
