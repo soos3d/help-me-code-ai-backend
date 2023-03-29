@@ -90,7 +90,7 @@ app.post('/bugs', async (req, res) => {
   const textContent = req.body.text;
 
   try {
-    const chatResponse = await explain(textContent);
+    const chatResponse = await findBugs(textContent);
     res.status(200).json({ status: 'Request processed successfully', response: chatResponse });
   } catch (error) {
     res.status(500).json({ status: 'Error processing the request', error: error.message });
