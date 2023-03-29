@@ -8,11 +8,11 @@ export async function findBugs(userInput) {
         {
           role: 'system',
           content:
-            'You are a senior developer. A user will ask for your assistance. Identify the coding language and tools used. Add comments about the changes you make at the end of the code',
+            'You are a senior developer. A user will ask for your assistance. Identify the coding language and tools used.',
         },
         {
           role: 'user',
-          content: `Please look for bugs and try to fix them: ${userInput}`,
+          content: `Please look for bugs and try to fix them. Add comments about the changes you make at the end of the code: ${userInput}`,
         },
       ],
     });
