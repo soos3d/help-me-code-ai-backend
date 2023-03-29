@@ -12,7 +12,7 @@ export async function findBugs(userInput) {
         },
         {
           role: 'user',
-          content: `Please look for possible errors and bugs in the following code. Try to fix the code and add the corrections as comments: ${userInput}`,
+          content: `Please look for possible errors and bugs in the following code. Fix the code and add comments about the fixes at the end: ${userInput}`,
         },
       ],
     });
