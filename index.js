@@ -4,6 +4,7 @@ import { fetchRewrittenCode } from './src/errors.js';
 import { addComments } from './src/comments.js';
 import { conventions } from './src/conventions.js';
 import { professional } from './src/professional.js';
+import { findBugs } from './src/findBugs.js';
 import { explain } from './src/explain.js';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
@@ -18,8 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Add rate limiting middleware
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  windowMs: 60 * 60 * 1000, // 60 minutes
+  max: 50, // limit each IP to 50 requests per windowMs
   message: 'Too many requests from this IP, please try again later',
 });
 app.use(limiter);
@@ -83,6 +84,18 @@ app.post('/explain', async (req, res) => {
       res.status(500).json({ status: 'Error processing the request', error: error.message });
     }
   });
+
+        // Run the look for bugs promt
+app.post('/bugs', async (req, res) => {
+  const textContent = req.body.text;
+
+  try {
+    const chatResponse = await explain(textContent);
+    res.status(200).json({ status: 'Request processed successfully', response: chatResponse });
+  } catch (error) {
+    res.status(500).json({ status: 'Error processing the request', error: error.message });
+  }
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
