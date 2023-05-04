@@ -1,10 +1,11 @@
-
 import openAi from './aiProvider.js';
+import { config } from 'dotenv';
+config();
 
 export async function fetchRewrittenCode(userInput) {
   try {
     const res = await openAi.createChatCompletion({
-      model: 'gpt-3.5-turbo',
+      model: process.env.AI_MODEL,
       messages: [
         {
           role: 'system',

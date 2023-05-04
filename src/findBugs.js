@@ -1,9 +1,11 @@
 import openAi from './aiProvider.js';
+import { config } from 'dotenv';
+config();
 
 export async function findBugs(userInput) {
   try {
     const res = await openAi.createChatCompletion({
-      model: 'gpt-3.5-turbo',
+      model: process.env.AI_MODEL,
       messages: [
         {
           role: 'system',
@@ -12,7 +14,7 @@ export async function findBugs(userInput) {
         },
         {
           role: 'user',
-          content: `Please look for bugs and try to fix them. Add comments about the changes you make at the end of the code: ${userInput}`,
+          content: `Please look for bugs and try to fix them. Add comments about the changes you make at the end of the code in a code box: ${userInput}`,
         },
       ],
     });
